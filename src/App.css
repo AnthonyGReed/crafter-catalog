@@ -1,38 +1,60 @@
+:root {
+  --blue: #2248b2;
+  --light-blue: #9fb0de;
+  --light-brown: #ffe6b3;
+  --brown: #a47523;
+  --dark-brown: #583b0c;
+}
+
+body {
+  background-color: var(--dark-brown) !important;
+}
+
 .App {
+  /* text-align: center; */
+  height: 100vh;
+  width: 100vw;
+}
+
+.title {
+  background: var(--light-brown);
   text-align: center;
+  color: var(--dark-brown);
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.profession-container {
+  background-color: var(--brown);
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.profession-box {
+  padding: 25px;
+  border-radius: 108px;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+.profession-image {
+  border-radius: 8px;
 }
 
-.App-link {
-  color: #61dafb;
+.active {
+  box-shadow:0 0 20px 7px var(--light-brown);
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.recipe-title {
+  text-align: center;
+  font-size: 1.5em;
+  background-color: var(--light-brown);
+  margin: 20px 0px 0px 0px;
+  padding: 10px;
+}
+
+.recipe-info {
+  background: var(--brown);
+  padding: 10px;
+  margin: 0px 20px 10px 20px;
+}
+
+.crafter-list {
+  list-style: none;
+  padding: 0px;
+
 }

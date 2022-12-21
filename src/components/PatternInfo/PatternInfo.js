@@ -1,8 +1,12 @@
 import Axios from 'axios'
 import React, { useEffect, useState } from 'react'
+import Spinner from 'react-bootstrap/Spinner'
+import Container from 'react-bootstrap/Container'
+import Row from 'react-bootstrap/Row'
+import Col from 'react-bootstrap/Col'
+import ACCESS_TOKEN from '../../data/AccessToken/AccessToken'
 
 const PatternInfo = (props) => {
-    const ACCESS_TOKEN = "US1t2HdS52uX8oR22eqybD8wkTMVtJeA39"
     const [info, setInfo] = useState(null)
 
     useEffect(() => {
@@ -13,28 +17,45 @@ const PatternInfo = (props) => {
         }
     }, [info, props.pattern.key.href])
 
-    var body = "Loading..."
+    var body = <Spinner animation="border" variant="warning" />
     if(info) {
         var sparks = 0
         var motes = 0
-        var crafters = ""
+        var crafters = null
+        var ingenuity = null
+        var primal = null
         if(info.reagents) {
             if(info.reagents.some(e => e.reagent.id === 190453)) {
                 sparks = info.reagents.find(e => e.reagent.id === 190453).quantity
+                if (sparks > 0) { ingenuity = <p>Sparks of Ingenuity Required: {sparks}</p>}
             }
             if(info.reagents.some(e => e.reagent.id === 190454)) {
                 motes = info.reagents.find(e => e.reagent.id === 190454).quantity
+                if(motes > 0 ) { primal = <p>Primal Chaos Required: {motes}</p>}
             }
         }
-        for(var ownerIdx in props.pattern.owner) {
-            crafters += props.pattern.owner[ownerIdx].name + " "
+        var reagents = null
+        if(ingenuity || primal) {
+            reagents = (<Col>
+                {ingenuity}
+                {primal}
+            </Col>)
         }
+        crafters = props.pattern.owner.map(crafter => {
+            return <li key={crafter.id}>{crafter.name}</li>
+        })
         body = (
-            <>
-                <p>Sparks of Ingenuity required: {sparks}</p>
-                <p>Primal Chaos required: {motes}</p>
-                <p>Guild Crafters: {crafters}</p>
-            </>
+            <Container className="recipe-info">
+                <Row>
+                    <Col>
+                        <p>Guild Crafters:</p>
+                        <ul className="crafter-list">
+                            {crafters}
+                        </ul>
+                    </Col>
+                    {reagents}
+                </Row>
+            </Container>
         )
     }
 

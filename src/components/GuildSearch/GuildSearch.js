@@ -1,7 +1,7 @@
 import React, {useState} from 'react'
 import Axios from 'axios'
 
-
+//This is currently not in use but would be something I would use if we wanted to make this more open and useable by other guilds
 function GuildSearch() {
   const [region, setRegion] = useState("")
   const [guild, setGuild] = useState("")

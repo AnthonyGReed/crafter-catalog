@@ -1,6 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import ProfessionInfoPanel from '../../components/ProfessionInfoPanel/ProfessionInfoPanel'
 import PatternBlock from '../PatternBlock/PatternBlock'
+import Container from 'react-bootstrap/Container'
+import Row from 'react-bootstrap/Row'
+import Col from 'react-bootstrap/Col'
+import Stack from 'react-bootstrap/Stack'
 
 const ProfessionBlock = (props) => {
     const [visibility, setVisibility] = useState(null)
@@ -32,21 +36,37 @@ const ProfessionBlock = (props) => {
         for(var index in professionList) {
             if(professionList[index].known_recipes.length > 0) {
                 var name = professionList[index].name
-                outputList.push(<ProfessionInfoPanel titleHandler={(title) => {props.titleHandler(title)}} visibilityHandler={(name) => {toggleVisible(name)}} key={index} name={name} id={professionList[index].id}/> )
+                outputList.push(
+                    <Col xs="6" sm="4" lg="2" key={index}>
+                        <ProfessionInfoPanel titleHandler={(title) => {props.titleHandler(title)}} visibilityHandler={(name) => {toggleVisible(name)}} name={name} id={professionList[index].id}/>
+                    </Col>
+                )
                 if(visibility[name]) {
-                    recipeLists.push(<PatternBlock key={index} profession={professionList[index]} />)
+                    recipeLists.push(
+                        <PatternBlock profession={professionList[index]} key={index}/>
+                    )
                 } 
             }
         }
     }
 
   return (
-    <div>
-        <ul>    
+    <Container fluid="s">
+        <Row className="profession-container">
             {outputList}
-            {recipeLists}
-        </ul>
-    </div>
+        </Row>
+        <Row>
+            <Col>
+                <Container className="col-md-8 ">
+                    <Row>
+                        <Stack gap={12}>
+                            {recipeLists}
+                        </Stack>
+                    </Row>
+                </Container>
+            </Col>
+        </Row>
+    </Container>            
   )
 }
 

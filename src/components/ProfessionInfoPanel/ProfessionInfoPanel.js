@@ -1,9 +1,11 @@
 import Axios from 'axios'
 import React, {useState, useEffect} from 'react'
+import Container from 'react-bootstrap/Container'
+import ACCESS_TOKEN from '../../data/AccessToken/AccessToken'
 
 const ProfessionInfoPanel = (props) => {
-    const ACCESS_TOKEN = "US1t2HdS52uX8oR22eqybD8wkTMVtJeA39"
     const [professionData, setProfessionData] = useState(null)
+    const [selected, setSelected] = useState(false)
 
     useEffect(() => {
         if(!professionData) {
@@ -17,12 +19,24 @@ const ProfessionInfoPanel = (props) => {
         }
     }, [professionData, props.id, props.name])
 
+    const toggleSelected = () => {
+      setSelected(!selected)
+    }
+
+    var active = ""
+    if(selected) {
+      active = "active"
+    }
     var info = ""
     if(professionData) {
-      info = <img src={professionData.image} alt={professionData.name} onMouseOver={() => {props.titleHandler(props.name)}} onClick={() =>{props.visibilityHandler(props.name)}}/>
+      info = (
+        <div className="profession-box">
+          <img className={`${active} profession-image`}  src={professionData.image} alt={professionData.name} onMouseOver={() => {props.titleHandler(props.name)}} onClick={() =>{props.visibilityHandler(props.name); toggleSelected()}}/>
+        </div>
+      )
     }
   return (
-    <div>{info}</div>
+    <Container>{info}</Container>
   )
 }
 

@@ -5,7 +5,7 @@ import PatternInfo from '../../components/PatternInfo/PatternInfo'
 const PatternBlock = (props) => {
     const [recipes, setRecipes] = useState(null)
     const [visibility, setVisibility] = useState(null)
-
+    
     useEffect(() => {
         if(!recipes) {
             var temp = []
@@ -45,7 +45,7 @@ const PatternBlock = (props) => {
                 patternInfo = <PatternInfo pattern={rec} />
             }
             return (
-                <div key={rec.id}>
+                <div className="recipe-card" key={rec.id}>
                     <PatternTitle visibilityHandler={(name) => {toggleVisible(name)}}>{rec.name}</PatternTitle>
                     {patternInfo}
                 </div>

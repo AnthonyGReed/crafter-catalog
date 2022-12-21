@@ -1,11 +1,13 @@
 import React, {useState, useEffect} from 'react'
 import Axios from 'axios'
 import ProfessionBlock from '../ProfessionBlock/ProfessionBlock'
+import Spinner from 'react-bootstrap/Spinner'
+import Container from 'react-bootstrap/Container'
+import ACCESS_TOKEN from '../../data/AccessToken/AccessToken'
 
 const GuildList = () => {
     const BASE_URL_DATA = "https://us.api.blizzard.com/data/wow/"
     const BASE_URL_PROFILE = "https://us.api.blizzard.com/profile/wow/"
-    const ACCESS_TOKEN = "US1t2HdS52uX8oR22eqybD8wkTMVtJeA39"
     const PARAMS = "&locale=en_US&access_token=" + ACCESS_TOKEN
 
     const [guildList, setGuildList] = useState([])
@@ -52,7 +54,8 @@ const GuildList = () => {
                     var callList = []
                     for(var playerIdx in response.data.members) {
                         var player = response.data.members[playerIdx].character.name.toLowerCase()
-                        if(player.substring(0,4) !== "navy") {
+                        if(player.substring(0,4) !== "navy" && player !== "kuch") {
+                            console.log(player)
                             var url = BASE_URL_PROFILE + "character/area-52/" + player + "/professions?namespace=profile-us" + PARAMS
                             var call = Axios.get(url)
                             callList = [...callList, call]
@@ -134,13 +137,13 @@ const GuildList = () => {
         }
     }, [guildList, PARAMS, professionList])
 
-    let professionBlock = <h1>Loading...</h1>
+    let professionBlock = <Spinner animation="border" variant="warning"/>
     if(Object.keys(professionList).length > 0 && !professionList.empty) {
         professionBlock = (
-        <div>
-            <h1>{title}</h1>
+        <Container>
+            <h1 className="title">{title}</h1>
             <ProfessionBlock professionList={professionList} titleHandler={(title) => {setTitle(title)}}/>
-        </div>
+        </Container>
         )
         
     }
