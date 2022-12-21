@@ -38,12 +38,12 @@ const ProfessionBlock = (props) => {
                 var name = professionList[index].name
                 outputList.push(
                     <Col xs="6" sm="4" lg="2" key={index}>
-                        <ProfessionInfoPanel titleHandler={(title) => {props.titleHandler(title)}} visibilityHandler={(name) => {toggleVisible(name)}} name={name} id={professionList[index].id}/>
+                        <ProfessionInfoPanel accessToken={props.accessToken} titleHandler={(title) => {props.titleHandler(title)}} visibilityHandler={(name) => {toggleVisible(name)}} name={name} id={professionList[index].id}/>
                     </Col>
                 )
                 if(visibility[name]) {
                     recipeLists.push(
-                        <PatternBlock profession={professionList[index]} key={index}/>
+                        <PatternBlock accessToken={props.accessToken} profession={professionList[index]} key={index}/>
                     )
                 } 
             }

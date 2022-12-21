@@ -1,7 +1,6 @@
 import Axios from 'axios'
 import React, {useState, useEffect} from 'react'
 import Container from 'react-bootstrap/Container'
-import ACCESS_TOKEN from '../../data/AccessToken/AccessToken'
 
 const ProfessionInfoPanel = (props) => {
     const [professionData, setProfessionData] = useState(null)
@@ -9,7 +8,7 @@ const ProfessionInfoPanel = (props) => {
 
     useEffect(() => {
         if(!professionData) {
-          Axios.get("https://us.api.blizzard.com/data/wow/media/profession/" + props.id + "?namespace=static-us&locale=en_US&access_token=" + ACCESS_TOKEN)
+          Axios.get("https://us.api.blizzard.com/data/wow/media/profession/" + props.id + "?namespace=static-us&locale=en_US&access_token=" + props.accessToken.access_token)
             .then(response => {
               setProfessionData({
                 image: response.data.assets[0].value,

@@ -4,14 +4,13 @@ import Spinner from 'react-bootstrap/Spinner'
 import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
-import ACCESS_TOKEN from '../../data/AccessToken/AccessToken'
 
 const PatternInfo = (props) => {
     const [info, setInfo] = useState(null)
 
     useEffect(() => {
         if(!info) {
-            Axios.get(props.pattern.key.href + "&access_token=" + ACCESS_TOKEN).then(res => {
+            Axios.get(props.pattern.key.href + "&access_token=" + props.accessToken.access_token).then(res => {
                 setInfo(res.data)
             })
         }

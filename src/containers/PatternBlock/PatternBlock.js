@@ -42,7 +42,7 @@ const PatternBlock = (props) => {
         recipeList = recipes.map(rec => {
             var patternInfo = null
             if(visibility && visibility[rec.name]) {
-                patternInfo = <PatternInfo pattern={rec} />
+                patternInfo = <PatternInfo accessToken={props.accessToken} pattern={rec} />
             }
             return (
                 <div className="recipe-card" key={rec.id}>
